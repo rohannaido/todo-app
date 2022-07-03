@@ -52,6 +52,7 @@ ol{
 }
 
 .sidebar-div{
+    padding: 1rem;
     background-color: antiquewhite;
 }
 
@@ -63,6 +64,10 @@ ol{
 .sidebar-div ol li{
     cursor: pointer;
     margin: 1rem 0;
+}
+
+.task-list-div{
+    padding: 1rem;
 }
 
 .task-list-div ol{

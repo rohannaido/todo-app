@@ -30,6 +30,15 @@ const createSidebar = () => {
 
     sidebar.appendChild(heading);
 
+    const inputName = document.createElement("input");
+    const inputButton = document.createElement("button");
+
+    inputButton.innerText = "Add";
+    inputButton.addEventListener("click", addProject);
+
+    sidebar.appendChild(inputName);
+    sidebar.appendChild(inputButton);
+
     sidebar.appendChild(createProjectList());
 
     return sidebar;
@@ -59,15 +68,6 @@ const createProjectList = () => {
     const projectList = document.createElement("ol");
 
     let listItem = document.createElement("li");
-    const inputName = document.createElement("input");
-    const inputButton = document.createElement("button");
-    inputButton.innerText = "Add";
-
-    inputButton.addEventListener("click", addProject);
-
-    listItem.appendChild(inputName);
-    listItem.appendChild(inputButton);
-    projectList.appendChild(listItem);
 
     for(const project of myTodoList.getProjects()){
         listItem = document.createElement("li");
@@ -90,22 +90,42 @@ const addProject = (e) => {
 }
 
 const showProjectTasks = (project) => {
-    const taskListContainer = document.querySelector(".task-list-div");
+    const taskListContainer = document.querySelector(".task-list-div div");
     taskListContainer.innerText = "";
 
     taskListContainer.appendChild(createTaskList(project));
+    myTodoList.setActiveProject(project);
 
 }
 
 const createTaskPanel = () => {
     const taskList = document.createElement("div");
+    const taskListDiv = document.createElement("div");
     taskList.classList.add("task-list-div");
     
+    const input = document.createElement("input");
+    const button = document.createElement("button");
+    button.innerText = "Add"
+    button.addEventListener("click", () => addTask());
+
+    taskList.appendChild(input);
+    taskList.appendChild(button);
+
     const defaultTaskList = createTaskList(myTodoList.getDefaultProject());
-    
-    taskList.appendChild(defaultTaskList);
+    taskListDiv.appendChild(defaultTaskList);
+    taskList.appendChild(taskListDiv);
 
     return taskList;
+}
+
+const addTask = () => {
+    const input = document.querySelector(".task-list-div input");
+    console.log(input.value);
+    const newTask = new Task(input.value, "");
+    console.log(myTodoList.getActiveProject());
+    myTodoList.getActiveProject().addTask(newTask);
+    updateTaskList();
+
 }
 
 const createTaskList = (project) => {
@@ -119,5 +139,13 @@ const createTaskList = (project) => {
 
     return taskList;
 }
+
+const updateTaskList = () => {
+    const taskList = document.querySelector(".task-list-div div");
+    taskList.innerText = "";
+
+    taskList.appendChild(createTaskList(myTodoList.getActiveProject()));
+}
+
 
 export {createTodoList};

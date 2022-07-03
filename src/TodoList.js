@@ -1,6 +1,7 @@
 export default class TodoList{
     constructor(){
         this.projects = [];
+        this.activeProject = this.getDefaultProject();
     }
     getDefaultProject(){
         if (this.projects[0]){
@@ -16,5 +17,11 @@ export default class TodoList{
             return   
         }
         this.projects.push(project);
+    }
+    setActiveProject(project){
+        this.activeProject = project;
+    }
+    getActiveProject(){
+        return this.activeProject;
     }
 }
