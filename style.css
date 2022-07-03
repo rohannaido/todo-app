@@ -1,6 +1,7 @@
 *{
     box-sizing: border-box;
     /* border: 1px solid black; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 body{
@@ -10,7 +11,7 @@ body{
 div#content{
     height: 100vh;
     display: grid;
-    grid-template-rows: 4rem auto 2rem;
+    grid-template-rows: 4rem calc(100vh - 6rem) 2rem;
 }
 
 header{
@@ -33,6 +34,7 @@ main{
     background-color: aliceblue;
     display: grid;
     grid-template-columns: 1fr 2fr;
+    /* grid-template-rows: 80%; */
 }
 
 .sidebar-div{
@@ -40,7 +42,7 @@ main{
 }
 
 .sidebar-h2{
-    margin: 0;
+    margin: 0.5rem 0;
 }
 
 ol{
@@ -68,6 +70,12 @@ ol{
 
 .task-list-div{
     padding: 1rem;
+    overflow: hidden;
+}
+
+.task-list-div div{
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .task-list-div ol{
@@ -77,6 +85,12 @@ ol{
 
 .task-list-div ol li{
     margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-list-div ol li span{
+    font-weight: lighter;
 }
 
 footer{
