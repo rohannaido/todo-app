@@ -1,11 +1,13 @@
 export default class Task{
-    constructor(title, description){
+    constructor(title, description, dueDate = null, priority = "zxcv"){
         this.title = title;
         this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
     }
 
     getTitle(){
-        return this.title;        
+        return this.title;       
     }
 
     getDescription(){
@@ -15,4 +17,7 @@ export default class Task{
     setDescription(newDescription){
         this.description = newDescription;
     }
+    // setDueDate(){
+        
+    // }
 }

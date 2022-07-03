@@ -1,5 +1,5 @@
 import Project from "./Project";
-import Task from "./task";
+import Task from "./Task";
 import TodoList from "./TodoList";
 
 // TEST SAMPLE DATA //
@@ -8,15 +8,19 @@ const myTodoList = new TodoList();
 
 for(let j = 1; j < 6; j++){
     const project1 = new Project("One Project " + j);
-    for(let i = 0; i < 10; i++){
+    for(let i = 0; i < 20; i++){
+        console.log(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"));
         project1.addTask(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"))
     }
 
     myTodoList.addProject(project1);
 }
 
+// console.log(myTodoList);
+
 const testProject = new Project("asdfasdf");
 testProject.addTask(new Task("asdfzvxc", "asdfzxvasdf"));
+// console.log(new Task("asdfzvxc", "asdfzxvasdf",new Date(2021), "high"));
 
 myTodoList.addProject(testProject);
 
@@ -133,12 +137,14 @@ const createTaskList = (project) => {
         const listItem = document.createElement("li");
         listItem.innerText = task.getTitle();
 
+        const description = document.createElement("span");
+        description.innerText = task.getDescription();
         const deleteBtn = document.createElement("button");
         deleteBtn.innerText = "Del";
-        // deleteBtn.setAttribute("data-task", task.getTitle());
+        
         deleteBtn.addEventListener("click", () => deleteTask(task.getTitle()));
-
-        taskList.appendChild(deleteBtn);
+        listItem.appendChild(description);
+        listItem.appendChild(deleteBtn);
         taskList.appendChild(listItem);
     }
 
