@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+}
+
+body{
+    margin: 0;
+}
+
+div#content{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 4rem auto 2rem;
+}
+
+header{
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    background-color: beige;
+}
+
+header h1{
+    margin: 0;
+}
+
+main{
+
+}
+
+.todolist-div{
+    height: 100%;
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.sidebar-div{
+    height: 100%;
+}
+
+.sidebar-h2{
+    margin: 0;
+}
+
+ol{
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0;
+}
+
+.sidebar-div{
+    background-color: antiquewhite;
+}
+
+.sidebar-div ol{
+    list-style: none;
+    margin: 1rem;
+}
+
+.sidebar-div ol li{
+    cursor: pointer;
+    margin: 1rem 0;
+}
+
+.task-list-div ol{
+    list-style: none;
+    margin: 1rem;
+}
+
+.task-list-div ol li{
+    margin: 1rem 0;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
