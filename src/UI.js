@@ -2,6 +2,26 @@ import Project from "./Project";
 import Task from "./task";
 import TodoList from "./TodoList";
 
+// TEST SAMPLE DATA //
+
+const myTodoList = new TodoList();
+
+for(let j = 1; j < 6; j++){
+    const project1 = new Project("One Project " + j);
+    for(let i = 0; i < 10; i++){
+        project1.addTask(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"))
+    }
+
+    myTodoList.addProject(project1);
+}
+
+const testProject = new Project("asdfasdf");
+testProject.addTask(new Task("asdfzvxc", "asdfzxvasdf"));
+
+myTodoList.addProject(testProject);
+
+// TODO LIST //
+
 const createTodoList = () =>{
     const todoList = document.createElement("div");
     todoList.classList.add("todolist-div");
@@ -12,13 +32,8 @@ const createTodoList = () =>{
     return todoList;
 }
 
-const updateSidebar = () => {
-    const sidebar = document.querySelector(".sidebar-div div");
-    sidebar.innerText = "";
+// PROJECTS //
 
-    sidebar.appendChild(createProjectList());
-
-}
 
 const createSidebar = () => {
     const sidebar = document.createElement("div");
@@ -44,23 +59,14 @@ const createSidebar = () => {
     return sidebar;
 }
 
-// TEST SAMPLE DATA
+const updateSidebar = () => {
+    const sidebar = document.querySelector(".sidebar-div div");
+    sidebar.innerText = "";
 
-const myTodoList = new TodoList();
+    sidebar.appendChild(createProjectList());
 
-for(let j = 1; j < 6; j++){
-    const project1 = new Project("One Project " + j);
-    for(let i = 0; i < 10; i++){
-        project1.addTask(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"))
-    }
-
-    myTodoList.addProject(project1);
 }
 
-const testProject = new Project("asdfasdf");
-testProject.addTask(new Task("asdfzvxc", "asdfzxvasdf"));
-
-myTodoList.addProject(testProject);
 
 const createProjectList = () => {
     
@@ -98,6 +104,8 @@ const showProjectTasks = (project) => {
 
 }
 
+// TASKS
+
 const createTaskPanel = () => {
     const taskList = document.createElement("div");
     const taskListDiv = document.createElement("div");
@@ -114,18 +122,8 @@ const createTaskPanel = () => {
     const defaultTaskList = createTaskList(myTodoList.getDefaultProject());
     taskListDiv.appendChild(defaultTaskList);
     taskList.appendChild(taskListDiv);
-
+    
     return taskList;
-}
-
-const addTask = () => {
-    const input = document.querySelector(".task-list-div input");
-    console.log(input.value);
-    const newTask = new Task(input.value, "");
-    console.log(myTodoList.getActiveProject());
-    myTodoList.getActiveProject().addTask(newTask);
-    updateTaskList();
-
 }
 
 const createTaskList = (project) => {
@@ -134,18 +132,41 @@ const createTaskList = (project) => {
     for(const task of project.getTasks()){
         const listItem = document.createElement("li");
         listItem.innerText = task.getTitle();
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerText = "Del";
+        // deleteBtn.setAttribute("data-task", task.getTitle());
+        deleteBtn.addEventListener("click", () => deleteTask(task.getTitle()));
+
+        taskList.appendChild(deleteBtn);
         taskList.appendChild(listItem);
     }
 
     return taskList;
 }
 
-const updateTaskList = () => {
+const addTask = () => {
+    const input = document.querySelector(".task-list-div input");
+    const newTask = new Task(input.value, "");
+
+    myTodoList.getActiveProject().addTask(newTask);
+    
+    refreshTaskList();
+}
+
+const refreshTaskList = () => {
     const taskList = document.querySelector(".task-list-div div");
     taskList.innerText = "";
 
     taskList.appendChild(createTaskList(myTodoList.getActiveProject()));
 }
 
+const deleteTask = (taskTitle) => {
 
-export {createTodoList};
+    console.log(myTodoList.getActiveProject())
+    myTodoList.getActiveProject().deleteTask(taskTitle);
+    refreshTaskList();
+
+}
+
+export { createTodoList };

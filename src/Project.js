@@ -15,11 +15,19 @@ export default class Project{
     }
 
     addTask(task){
+        if(this.tasks.find((taskItem) => taskItem.getTitle() === task.getTitle())){
+            return
+        }
         this.tasks.push(task);
     }
 
     getTasks(){
         return this.tasks;
+    }
+
+    deleteTask(taskTitle){
+        this.tasks = this.tasks.filter((taskItem) => taskTitle !== taskItem.getTitle());
+
     }
 
 }
