@@ -15,10 +15,8 @@ import Storage from "./Storage";
 //     myTodoList.addProject(project1);
 // }
 
-const myTodoList = Storage.getTodoList();
+// const myTodoList = Storage.getTodoList();
 // Storage.saveTodoList(myTodoList);
-
-// console.log(myTodoList);
 
 // TODO LIST //
 
@@ -125,6 +123,7 @@ const createTaskPanel = () => {
     taskList.appendChild(input);
     taskList.appendChild(button);
 
+    Storage.setActive("default")
     const defaultTaskList = createTaskList("default");
 
     taskListDiv.appendChild(defaultTaskList);
@@ -136,7 +135,6 @@ const createTaskPanel = () => {
 const createTaskList = (projectName) => {
     const taskList = document.createElement("ol");
 
-    console.log(Storage.getTodoList().getProject(projectName));
     for(const task of Storage.getTodoList().getProject(projectName).getTasks()){
         const listItem = document.createElement("li");
         listItem.innerText = task.getTitle();
@@ -167,7 +165,6 @@ const addTask = () => {
     const input = document.querySelector(".task-list-div input");
     const newTask = new Task(input.value, "");
 
-    console.log(Storage.getTodoList().getActiveProject())
     Storage.addTask(Storage.getTodoList().getActiveProject(), newTask);
 
     // myTodoList.getActiveProject().addTask(newTask);
@@ -216,7 +213,8 @@ const createEditBox = (content) => {
 
 const updateTask = (oldTitle, newTitle) => {
     // console.log(myTodoList.getActiveProject())
-    myTodoList.getActiveProject().updateTask(oldTitle, newTitle);
+    Storage.getTodoList()
+    Storage.updateTask(Storage.getTodoList().getActiveProject(), oldTitle, newTitle);
     hideEditPanel();
     refreshTaskList();
 }
@@ -232,7 +230,6 @@ const hideEditPanel = () => {
 }
 
 const deleteTask = (taskTitle) => {
-    console.log(myTodoList.getActiveProject())
     Storage.deleteTask(Storage.getTodoList().getActiveProject(), taskTitle);
     refreshTaskList();
 }

@@ -1,4 +1,4 @@
-import Task from "./task";
+import Task from "./Task";
 
 export default class Project{
     constructor(name){
@@ -32,7 +32,8 @@ export default class Project{
     updateTask(oldtaskTitle, newTaskTitle){
         this.tasks.map((taskItem) => {
             if(taskItem.title === oldtaskTitle){
-                taskItem.setTitle(newTaskTitle);
+                console.log(taskItem);
+                taskItem.updateTitle(newTaskTitle);
             }
         })
     }
