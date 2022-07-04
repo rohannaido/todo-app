@@ -20,14 +20,14 @@ export default class Storage{
         myTodoList.setProjects(myTodoList.getProjects().map((project) => Object.assign(new Project(), project)));
 
         // Active Project
-        myTodoList.setActiveProject(myTodoList.getDefaultProject());
+        // myTodoList.setActiveProject(myTodoList.getDefaultProject());
 
         //Task Objects
         myTodoList.getProjects().map((project) => project.setTasks(
             project.getTasks().map((task) => Object.assign(new Task(), task))
         ));
         
-        console.log(myTodoList);
+        // console.log(myTodoList);
         return myTodoList;
     }
 
@@ -37,5 +37,20 @@ export default class Storage{
         Storage.saveTodoList(todoList);
     }
 
+    static addTask(projectName, task){
+        const todoList = Storage.getTodoList();
+        todoList.getProject(projectName).addTask(task);
+        Storage.saveTodoList(todoList);
+    }
+    static setActive(projectName){
+        const todoList = Storage.getTodoList();
+        todoList.setActiveProject(projectName);
+        Storage.saveTodoList(todoList);
+    }
 
+    static deleteTask(projectName, taskTitle){
+        const todoList = Storage.getTodoList();
+        todoList.getProject(projectName).deleteTask(taskTitle);
+        Storage.saveTodoList(todoList);
+    }
 }
