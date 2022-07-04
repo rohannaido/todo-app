@@ -13,16 +13,24 @@ export default class Project{
     setName(newName){
         this.name = newName;
     }
+    
+    getTasks(){
+        return this.tasks;
+    }
 
     addTask(task){
-        if(this.tasks.find((taskItem) => taskItem.getTitle() === task.getTitle())){
+        if((task.getTitle() == "") || (this.tasks.find((taskItem) => taskItem.getTitle() === task.getTitle()))){
             return
         }
         this.tasks.push(task);
     }
 
-    getTasks(){
-        return this.tasks;
+    updateTask(oldtaskTitle, newTaskTitle){
+        this.tasks.map((taskItem) => {
+            if(taskItem.title === oldtaskTitle){
+                taskItem.updateTitle(newTaskTitle);
+            }
+        })
     }
 
     deleteTask(taskTitle){
@@ -30,5 +38,5 @@ export default class Project{
 
     }
 
-    
+
 }

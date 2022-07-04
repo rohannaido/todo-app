@@ -18,7 +18,8 @@ header{
     padding: 0 1rem;
     display: flex;
     align-items: center;
-    background-color: beige;
+    background-color: #111827;
+    color: #f3f4f6;
 }
 
 header h1{
@@ -26,15 +27,14 @@ header h1{
 }
 
 main{
-
+    position: relative;
 }
 
 .todolist-div{
+    position: relative;
     height: 100%;
-    background-color: aliceblue;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    /* grid-template-rows: 80%; */
 }
 
 .sidebar-div{
@@ -55,7 +55,7 @@ ol{
 
 .sidebar-div{
     padding: 1rem;
-    background-color: antiquewhite;
+    background-color: #e5e7eb;
 }
 
 .sidebar-div ol{
@@ -73,7 +73,7 @@ ol{
     overflow: hidden;
 }
 
-.task-list-div div{
+.task-list-div > div{
     height: 100%;
     overflow-y: scroll;
 }
@@ -91,6 +91,31 @@ ol{
 
 .task-list-div ol li span{
     font-weight: lighter;
+}
+
+.task-btn-div{
+    display: flex;
+    /* mar */
+}
+
+.edit-panel-div{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-box-div{
+    height: 50%;
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: space-evenly;
 }
 
 footer{

@@ -17,7 +17,9 @@ export default class Task{
     setDescription(newDescription){
         this.description = newDescription;
     }
-    // setDueDate(){
-        
-    // }
+    updateTitle(newTitle){
+        if(newTitle){
+            this.title = newTitle;
+        }
+    }
 }

@@ -96,6 +96,8 @@ const createProjectList = () => {
 const addProject = (e) => {
     const nameInput = document.querySelector(".sidebar-div input");
     myTodoList.addProject(new Project(nameInput.value));
+    saveTodoList();
+    nameInput.value = "";
     updateSidebar();
 }
 
@@ -139,12 +141,20 @@ const createTaskList = (project) => {
 
         const description = document.createElement("span");
         description.innerText = task.getDescription();
+        const btnContainer = document.createElement("div");
         const deleteBtn = document.createElement("button");
+        const editBtn = document.createElement("button");
+
+        btnContainer.classList.add("task-btn-div")
+        editBtn.innerText = "Edit"
         deleteBtn.innerText = "Del";
         
+        editBtn.addEventListener("click", () => editTask(task));
         deleteBtn.addEventListener("click", () => deleteTask(task.getTitle()));
+        btnContainer.appendChild(editBtn);
+        btnContainer.appendChild(deleteBtn);
         listItem.appendChild(description);
-        listItem.appendChild(deleteBtn);
+        listItem.appendChild(btnContainer);
         taskList.appendChild(listItem);
     }
 
@@ -156,7 +166,8 @@ const addTask = () => {
     const newTask = new Task(input.value, "");
 
     myTodoList.getActiveProject().addTask(newTask);
-    
+    saveTodoList();
+    input.value = "";
     refreshTaskList();
 }
 
@@ -167,11 +178,65 @@ const refreshTaskList = () => {
     taskList.appendChild(createTaskList(myTodoList.getActiveProject()));
 }
 
+const editTask = (task) => {
+    showEditPanel(task.getTitle());
+}
+
+const createEditPanel = (content) => {
+    const editPanel = document.createElement("div");
+    editPanel.classList.add("edit-panel-div");
+
+    editPanel.appendChild(createEditBox(content));
+    return editPanel;
+}
+
+const createEditBox = (content) => {
+    const editBox = document.createElement("div");
+    editBox.classList.add("edit-box-div");
+    const input = document.createElement("input");
+    const updateBtn = document.createElement("button");
+    const closeBtn = document.createElement("button");
+    input.value = content;
+    updateBtn.innerText = "Update";
+    closeBtn.innerText = "Close";
+    
+    updateBtn.addEventListener("click", () => updateTask(content, input.value))
+    closeBtn.addEventListener("click", () => hideEditPanel());
+
+    editBox.appendChild(input);
+    editBox.appendChild(updateBtn);
+    editBox.appendChild(closeBtn);
+    return editBox;
+}
+
+const updateTask = (oldTitle, newTitle) => {
+    myTodoList.getActiveProject().updateTask(oldTitle, newTitle);
+    hideEditPanel();
+    refreshTaskList();
+}
+
+const showEditPanel = (content) => {
+    const main = document.querySelector(".todolist-div");
+    main.appendChild(createEditPanel(content));
+}
+
+const hideEditPanel = () => {
+    const editPanel = document.querySelector(".edit-panel-div");
+    editPanel.remove();
+}
+
 const deleteTask = (taskTitle) => {
 
     console.log(myTodoList.getActiveProject())
     myTodoList.getActiveProject().deleteTask(taskTitle);
     refreshTaskList();
+
+}
+
+const saveTodoList = () => {
+    console.log(myTodoList);
+    
+    localStorage.setItem("TODO_LIST", JSON.stringify(myTodoList));
 
 }
 
