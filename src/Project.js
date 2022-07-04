@@ -18,6 +18,10 @@ export default class Project{
         return this.tasks;
     }
 
+    setTasks(newTasks){
+        this.tasks = newTasks;
+    }
+
     addTask(task){
         if((task.getTitle() == "") || (this.tasks.find((taskItem) => taskItem.getTitle() === task.getTitle()))){
             return
@@ -28,7 +32,7 @@ export default class Project{
     updateTask(oldtaskTitle, newTaskTitle){
         this.tasks.map((taskItem) => {
             if(taskItem.title === oldtaskTitle){
-                taskItem.updateTitle(newTaskTitle);
+                taskItem.setTitle(newTaskTitle);
             }
         })
     }
@@ -37,6 +41,4 @@ export default class Project{
         this.tasks = this.tasks.filter((taskItem) => taskTitle !== taskItem.getTitle());
 
     }
-
-
 }

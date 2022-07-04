@@ -17,7 +17,7 @@ export default class Task{
     setDescription(newDescription){
         this.description = newDescription;
     }
-    updateTitle(newTitle){
+    setTitle(newTitle){
         if(newTitle){
             this.title = newTitle;
         }

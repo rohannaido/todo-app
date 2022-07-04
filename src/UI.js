@@ -1,28 +1,24 @@
 import Project from "./Project";
 import Task from "./Task";
 import TodoList from "./TodoList";
-
+import Storage from "./Storage";
 // TEST SAMPLE DATA //
 
-const myTodoList = new TodoList();
+// const myTodoList = new TodoList();
 
-for(let j = 1; j < 6; j++){
-    const project1 = new Project("One Project " + j);
-    for(let i = 0; i < 20; i++){
-        console.log(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"));
-        project1.addTask(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"))
-    }
+// for(let j = 1; j < 6; j++){
+//     const project1 = new Project("One Project " + j);
+//     for(let i = 0; i < 20; i++){
+//         project1.addTask(new Task("taskasdf " + j + " -- "+ i, "dooo iiitt"))
+//     }
+    
+//     myTodoList.addProject(project1);
+// }
 
-    myTodoList.addProject(project1);
-}
+const myTodoList = Storage.getTodoList();
+// Storage.saveTodoList(myTodoList);
 
 // console.log(myTodoList);
-
-const testProject = new Project("asdfasdf");
-testProject.addTask(new Task("asdfzvxc", "asdfzxvasdf"));
-// console.log(new Task("asdfzvxc", "asdfzxvasdf",new Date(2021), "high"));
-
-myTodoList.addProject(testProject);
 
 // TODO LIST //
 
@@ -72,6 +68,7 @@ const updateSidebar = () => {
 }
 
 
+
 const createProjectList = () => {
     
     const projectListDiv = document.createElement("div");
@@ -79,7 +76,9 @@ const createProjectList = () => {
 
     let listItem = document.createElement("li");
 
-    for(const project of myTodoList.getProjects()){
+    // console.log(Storage.getTodoList());
+
+    for(const project of Storage.getTodoList().getProjects()){
         listItem = document.createElement("li");
 
         listItem.innerText = project.getName();
@@ -95,8 +94,9 @@ const createProjectList = () => {
 
 const addProject = (e) => {
     const nameInput = document.querySelector(".sidebar-div input");
-    myTodoList.addProject(new Project(nameInput.value));
-    saveTodoList();
+    // myTodoList.addProject(new Project(nameInput.value));
+    Storage.addProject(new Project(nameInput.value));
+    // Storage.saveTodoList(myTodoList);
     nameInput.value = "";
     updateSidebar();
 }
@@ -166,7 +166,7 @@ const addTask = () => {
     const newTask = new Task(input.value, "");
 
     myTodoList.getActiveProject().addTask(newTask);
-    saveTodoList();
+    // Storage.saveTodoList(myTodoList);
     input.value = "";
     refreshTaskList();
 }
@@ -230,13 +230,6 @@ const deleteTask = (taskTitle) => {
     console.log(myTodoList.getActiveProject())
     myTodoList.getActiveProject().deleteTask(taskTitle);
     refreshTaskList();
-
-}
-
-const saveTodoList = () => {
-    console.log(myTodoList);
-    
-    localStorage.setItem("TODO_LIST", JSON.stringify(myTodoList));
 
 }
 
